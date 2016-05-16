@@ -7,6 +7,7 @@ import android.view.View;
 import android.util.Log;
 import android.app.ProgressDialog;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -135,6 +136,8 @@ public class LoginActivity extends AppCompatActivity implements
     // [START signIn]
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Toast a = Toast.makeText(this, "starting activity", Toast.LENGTH_SHORT);
+        a.show();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signIn]
@@ -146,6 +149,8 @@ public class LoginActivity extends AppCompatActivity implements
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Toast a = Toast.makeText(this, "on Activity result", Toast.LENGTH_LONG);
+            a.show();
             handleSignInResult(result);
         }
     }
@@ -155,11 +160,16 @@ public class LoginActivity extends AppCompatActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            Toast a = Toast.makeText(this, "Signedin as: " + acct.getDisplayName(), Toast.LENGTH_LONG);
+            a.show();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            //updateUI(true);
+
+//            updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
             //updateUI(false);
+            Toast a = Toast.makeText(this, "not success" + result.toString(), Toast.LENGTH_LONG);
+            a.show();
         }
     }
 }
